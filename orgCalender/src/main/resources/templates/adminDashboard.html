@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Include FullCalendar library -->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+    <!-- Include Thymeleaf expressions for static resources -->
+    <script th:src="@{/webjars/momentjs/2.29.1/moment.min.js}"></script>
+    <script th:src="@{/webjars/fullcalendar/3.10.2/fullcalendar.min.js}"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+        #calendar {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .btn-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h2>Welcome to Admin Dashboard</h2>
+
+<!-- Display Calendar -->
+<div id='calendar'></div>
+
+<!-- Thymeleaf expression for initializing FullCalendar -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+    /*]]>*/
+</script>
+
+<!-- Buttons -->
+<div class="btn-container">
+    <a href="/admin/addUser" class="btn">Add User</a>
+    <a href="/admin/addNote" class="btn">Add Note</a>
+    <a href="/admin/showUsers" class="btn">Show Users</a>
+
+</div>
+</body>
+</html>

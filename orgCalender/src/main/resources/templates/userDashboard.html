@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+          background-color: #f4f4f4;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          background-color: #fff;
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center; /* Center vertically and horizontally */
+        }
+        h1 {
+          text-align: center;
+        }
+        button {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          margin: 10px 0;
+          display: block;
+          width: 100%;
+          max-width: 200px;
+          text-align: center;
+        }
+        button:hover {
+          background-color: #45a049;
+        }
+        #calendar {
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          padding: 20px;
+          margin-top: 20px;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>User Dashboard</h1>
+    <button onclick="window.location.href='/user/addNote'">Add Note</button>
+    <button onclick="window.location.href='/user/LeaveApplication'">Apply Leave Application</button>
+    <button onclick="showCalendar()">Show Calendar</button>
+    <div id="calendar" style="display: none;">
+        <!-- Calendar content goes here -->
+        <h2 id="currentMonth"></h2>
+        <p id="currentDate"></p>
+        <table id="calendarTable">
+            <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+            </thead>
+            <tbody id="calendarBody"></tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function showCalendar() {
+      const calendarDiv = document.getElementById('calendar');
+      if (calendarDiv.style.display === 'none') {
+        calendarDiv.style.display = 'block';
+        renderCalendar();
+      } else {
+        calendarDiv.style.display = 'none';
+      }
+    }
+
+    function renderCalendar() {
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+      const currentDay = currentDate.getDate();
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      document.getElementById('currentMonth').innerText = months[currentMonth] + ' ' + currentYear;
+      document.getElementById('currentDate').innerText = 'Current Date: ' + currentDay + ' ' + months[currentMonth] + ' ' + currentYear;
+
+      const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+      const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      let tableBody = '';
+      let dayCounter = 1;
+      for (let i = 0; i < 6; i++) {
+        let row = '<tr>';
+        for (let j = 0; j < 7; j++) {
+          if ((i === 0 && j < firstDayOfMonth) || dayCounter > lastDayOfMonth) {
+            row += '<td></td>';
+          } else {
+            row += '<td>' + dayCounter + '</td>';
+            dayCounter++;
+          }
+        }
+        row += '</tr>';
+        tableBody += row;
+      }
+      document.getElementById('calendarBody').innerHTML = tableBody;
+    }
+</script>
+</body>
+</html>
+

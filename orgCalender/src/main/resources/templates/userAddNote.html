@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Note</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+        }
+        h1 {
+          text-align: center;
+        }
+        form {
+          max-width: 400px;
+          margin: 0 auto;
+        }
+        label {
+          display: block;
+          margin-bottom: 10px;
+        }
+        input[type="date"],
+        textarea {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        button {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          display: block;
+          width: 100%;
+          max-width: 200px;
+          margin: 0 auto;
+        }
+        button:hover {
+          background-color: #45a049;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+        }
+        li {
+          background-color: #f9f9f9;
+          padding: 10px;
+          margin-bottom: 5px;
+          border-radius: 4px;
+        }
+        .delete-btn {
+          background-color: #f44336;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          margin-left: 10px;
+        }
+        .delete-btn:hover {
+          background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+<h1>Add Note</h1>
+<form id="addNoteForm">
+    <label for="noteDate">Date:</label>
+    <input type="date" id="noteDate" name="noteDate" required>
+    <label for="noteText">Note:</label>
+    <textarea id="noteText" name="noteText" rows="4" required></textarea>
+    <button type="submit">Add Note</button>
+</form>
+<h2>Added Notes:</h2>
+<ul id="noteList"></ul>
+<script>
+    document.getElementById('addNoteForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const noteDate = document.getElementById('noteDate').value;
+      const noteText = document.getElementById('noteText').value;
+      if (noteDate && noteText) {
+        const noteItem = document.createElement('li');
+        noteItem.textContent = noteDate + ': ' + noteText;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'delete-btn';
+        deleteButton.addEventListener('click', function() {
+          noteItem.remove();
+        });
+
+        noteItem.appendChild(deleteButton);
+
+        document.getElementById('noteList').appendChild(noteItem);
+
+        document.getElementById('noteDate').value = '';
+        document.getElementById('noteText').value = '';
+      } else {
+        alert('Please enter both date and note text.');
+      }
+    });
+</script>
+</body>
+</html>
+
+
